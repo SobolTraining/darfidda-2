@@ -1,170 +1,0 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>متجر دار فضة</title>
-    <link rel="stylesheet" href="style.css">
-    
-    <style>
-        .row {
-            display: flex;
-            flex-wrap: wrap;
-            margin-right: -10px;
-            margin-left: -10px;
-        }
-        .col-6 { 
-            width: 50%; 
-            padding: 10px; 
-        }
-        /* كلاسات التجاوب الأخرى (col-md-4, col-lg-3) يتم تعريفها في style.css */
-    </style>
-</head>
-<body>
-
-    <header>
-        <h1>دار فضة</h1>
-        
-        <div id="mini-cart-summary" style="padding: 5px; text-align: center;">
-             <button id="cart-button" class="cta-button" style="width: auto; margin: 5px; padding: 5px 15px;">
-                🛒 السلة: (<span id="cart-count">0</span>) | الإجمالي: <span id="cart-total">0.00</span> $
-            </button>
-        </div>
-
-        <nav class="main-nav">
-            <ul>
-                <li><a href="#fashions">👗 الأزياء والمقتنيات</a></li>
-                <li><a href="#accessories">👜 الحقائب والإكسسوارات</a></li>
-                <li><a href="#library">📚 مكتبة دار فضة</a></li>
-                <li><a href="#coming-soon-section">🔥 قريباً</a></li>
-                <li><a href="#services">✨ خدماتنا</a></li> 
-            </ul>
-        </nav>
-    </header>
-
-    <main class="container">
-        
-        <section id="fashions" class="category-section">
-            <h2>👗 الأزياء والمقتنيات</h2>
-            <div class="row" id="fashions-products">
-            </div>
-        </section>
-
-        <section id="accessories" class="category-section">
-            <h2>👜 الحقائب والإكسسوارات</h2>
-            <div class="row" id="accessories-products">
-            </div>
-        </section>
-
-        <section id="library" class="category-section">
-            <h2>📚 مكتبة دار فضة</h2>
-            <div class="row" id="library-products">
-            </div>
-        </section>
-
-        <section id="coming-soon-section" class="category-section">
-            <h2>🔥 قريباً في دار فضة</h2>
-            <div class="row" id="coming-soon-products">
-            </div>
-        </section>
-
-        <section id="services" class="category-section">
-            <h2>✨ خدماتنا المميزة</h2>
-            <div class="row" id="services-info">
-                <p>تصفح خياراتنا للتغليف المميز، التوصيل السريع، وبطاقات الهدايا.</p>
-            </div>
-        </section>
-        
-        <section id="cart" class="category-section" style="display: none;">
-            <h2>🛒 سلة التسوق</h2>
-            <div class="cart-summary">
-                </div>
-        </section>
-
-    </main>
-
-    <footer>
-        <p style="text-align: center; padding: 20px 0; background-color: #eee;">&copy; 2025 دار فضة. جميع الحقوق محفوظة.</p>
-    </footer>
-
-
-    <div id="checkout-modal" class="modal" style="display:none;">
-        <div class="modal-content">
-            <span class="close-btn">&times;</span>
-            <h2>✅ إتمام الطلب</h2>
-            
-            <form id="checkout-form" action="https://formspree.io/f/xkgyglrj" method="POST">
-                
-                <div id="checkout-details">
-                     </div>
-                <hr>
-
-                <label for="client-name">الاسم الكامل:</label>
-                <input type="text" id="client-name" name="الاسم" required>
-
-                <label for="client-phone">رقم الهاتف (للتواصل):</label>
-                <div style="display: flex; direction: ltr; align-items: center; gap: 5px; margin-bottom: 10px;">
-                    <span style="font-size: 1.1em; font-weight: bold; color: #44563C;">+961</span>
-                    <input type="tel" id="client-phone" name="phone_number" 
-                            pattern="^\d{8}$" 
-                            placeholder="76123456" 
-                            maxlength="8"
-                            title="يجب أن يكون 8 أرقام (مثال: 76123456)"
-                            required
-                            style="flex-grow: 1; text-align: left; margin-bottom: 0;">
-                    <input type="hidden" name="country_code" value="+961">
-                </div>
-                
-
-                <label for="client-address">العنوان كاملاً (المدينة، الشارع، رقم المبنى):</label>
-                <textarea id="client-address" name="address" rows="3" required></textarea>
-                
-                <label for="client-email">البريد الإلكتروني (اختياري، للفاتورة الإلكترونية):</label>
-                <input type="email" id="client-email" name="_replyto" placeholder="example@domain.com">
-
-                <div class="promo-code-area" style="margin-top: 20px; border: 1px solid #A5C189; padding: 15px; border-radius: 5px; text-align: right;">
-                    <label for="promo-code" style="text-align: right;">رمز الخصم (كوبون):</label>
-                    <div style="display: flex; gap: 10px; direction: rtl;">
-                        <input type="text" id="promo-code" name="promo-code-input" style="flex-grow: 1; margin-bottom: 0;" placeholder="أدخل الرمز هنا">
-                        <button type="button" id="apply-promo" class="cta-button" style="width: 100px; padding: 10px 0; font-size: 0.9em;">تطبيق</button>
-                    </div>
-                    <p id="promo-message" style="margin-top: 5px; font-size: 0.9em; text-align: right;"></p>
-                    <input type="hidden" id="applied-promo-code" name="applied_promo_code">
-                </div>
-                
-                <p class="final-total-line" style="margin-top: 15px;">
-                    إجمالي الطلب: <span id="modal-order-total">0.00 $</span>
-                </p>
-                <p class="final-total-line">
-                    تكلفة التوصيل: <span id="modal-delivery-charge">10.00 $</span>
-                </p>
-                <p class="final-total-line final-total">
-                    الإجمالي النهائي: <span id="modal-final-total">0.00 $</span>
-                </p>
-                
-                <button type="submit" class="cta-button" style="margin-top: 20px;">تأكيد الطلب والدفع</button>
-                
-                <input type="hidden" id="order-summary-hidden" name="Order_Summary">
-                <input type="hidden" name="_subject" value="⭐ طلب جديد من متجر دار فضة">
-            </form>
-        </div>
-    </div>
-
-
-    <div id="size-modal" class="modal" style="display: none;">
-        <div class="modal-content">
-            <span class="close-btn size-close-btn">&times;</span>
-            <h2 id="size-modal-product-name">اختر مقاس المنتج</h2>
-            
-            <label for="size-select">المقاسات المتوفرة:</label>
-            <select id="size-select"></select>
-            
-            <button class="cta-button" id="confirm-size-add" style="margin-top: 20px;">
-                تأكيد الإضافة للسلة
-            </button>
-        </div>
-    </div>
-
-    <script src="script.js"></script>
-</body>
-</html>
